@@ -13,6 +13,5 @@ var removeDuplicates = function(nums) {
         last=c;
         i++;
     }
-    console.log(nums);
     return nums.length;
 };
