@@ -1,37 +1,22 @@
-var strToMap=function(str) {
-    var map={};
-    for(let i=0; i<str.length; i++) {
-        if(!map[str[i]]) {
-            map[str[i]] = 1;
-            continue;
-        }
-        map[str[i]]+=1;
-    }
-    return map;
-}
-
-var stringToUniqueKey = function(str) {
-    const obj=strToMap(str)
-    return JSON.stringify(Object.keys(obj).sort().reduce((accumulator, key) => {
-        accumulator[key] = obj[key];
-        return accumulator;
-    }, {}));
-}
-
-
 /**
  * @param {string[]} strs
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    const uniqueKeyToStrMap={};
+    const result = [];
+    const resultLocationMap = {};
+
     for(let i=0; i<strs.length; i++) {
-        const uniqueKey=stringToUniqueKey(strs[i]);
-        if(!uniqueKeyToStrMap[uniqueKey]) {
-            uniqueKeyToStrMap[uniqueKey]=[strs[i]];
+        const str = strs[i];
+        const sortedStr = str.split("").sort().join("");
+        if(resultLocationMap[sortedStr] === undefined) {
+            result.push([str]);
+            resultLocationMap[sortedStr] = result.length-1;
             continue;
         }
-        uniqueKeyToStrMap[uniqueKey].push(strs[i]);
+
+        result[resultLocationMap[sortedStr]].push(str);
     }
-    return Object.values(uniqueKeyToStrMap);
+
+    return result;
 };
