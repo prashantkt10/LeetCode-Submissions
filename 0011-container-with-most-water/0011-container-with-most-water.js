@@ -20,18 +20,12 @@ var maxArea = function(height) {
 
         if(ptr2 - ptr1 == 1) return maxAmoutOfWater;
 
-        let ptrChanged = false;
-        
-        if(height[ptr1+1] > height[ptr1]) {
-            ptrChanged = true;
+        if(height[ptr1] < height[ptr2]) {
+            ptr1 += 1;
+        } else if(height[ptr2] < height[ptr1]) {
+            ptr2 -= 1;
+        } else {
             ptr1 += 1;
         }
-
-        if(height[ptr2-1] > height[ptr2]) {
-            ptrChanged = true;
-            ptr2 -= 1;
-        }
-
-        if(!ptrChanged) return maxAmoutOfWater;
     }
 };
